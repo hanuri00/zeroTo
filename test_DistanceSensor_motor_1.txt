@@ -1,0 +1,37 @@
+from gpiozero import DistanceSensor, Motor
+from time import sleep
+
+def forward():
+    
+
+def stop():
+
+
+
+def control_motor(distance):
+    if distance > 5:
+        print('Forward')
+        motor.forward()  # motor.forward()로 수정
+    else:
+        print('Stop')
+        motor.stop()
+
+def distance():
+    ultra = DistanceSensor(trigger=23, echo=24)
+    try:
+        while True:
+            current_distance = ultra.distance
+            print(f'Distance : {current_distance} m')
+            control_motor(current_distance)  # 거리 값으로 모터 제어
+            sleep(1)  # 1초 대기
+
+    except KeyboardInterrupt:
+        print("Measurement stopped by user.")
+
+def main():
+    global motor
+    motor = Motor(forward=17, backward=18)  # 모터 핀 번호 설정
+    distance()
+
+if __name__ == "__main__":
+    main()
